@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://b3nn0b84j33gw"]
+
+[ext_resource type="Script" path="res://scripts/mob.gd" id="1_oaxvt"]
+[ext_resource type="Texture2D" uid="uid://c6cdj70nv3gvy" path="res://sprite/enemy_01/Run 01.png" id="1_r0efe"]
+[ext_resource type="Texture2D" uid="uid://ml0hp515uo2v" path="res://sprite/enemy_01/Run 02.png" id="2_gowja"]
+[ext_resource type="Texture2D" uid="uid://c5mbihboepaxb" path="res://sprite/enemy_01/Run 03.png" id="3_meste"]
+[ext_resource type="Texture2D" uid="uid://d3wr4hnjscwfg" path="res://sprite/enemy_01/Run 04.png" id="4_xl822"]
+[ext_resource type="Texture2D" uid="uid://bfykrw0bkqvm2" path="res://sprite/enemy_01/Run 05.png" id="5_bhi3x"]
+[ext_resource type="Texture2D" uid="uid://b21x3crojfuwa" path="res://sprite/enemy_01/Run 06.png" id="6_swrg0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sd3dh"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wi7h3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xl822")
+}],
+"loop": true,
+"name": &"die",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_r0efe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gowja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_meste")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xl822")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bhi3x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_swrg0")
+}],
+"loop": true,
+"name": &"move",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0a6g5"]
+radius = 12.0
+height = 44.0
+
+[node name="mob" type="CharacterBody2D"]
+script = ExtResource("1_oaxvt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_sd3dh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_wi7h3")
+animation = &"die"
+frame_progress = 1.0
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0a6g5")
+debug_color = Color(0.960784, 0, 0.521569, 0.419608)
+metadata/_edit_lock_ = true

@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdfh0ypkkycnc"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_kmwdv"]
+[ext_resource type="SpriteFrames" uid="uid://cadm0h0fovm20" path="res://sprite/player.tres" id="2_1tkm6"]
+[ext_resource type="Script" path="res://scripts/Inventory.gd" id="3_dmpop"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ttks"]
+radius = 7.0
+height = 31.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n0ptk"]
+radius = 8.5
+height = 20.0
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_kmwdv")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -2.5)
+shape = SubResource("CapsuleShape2D_6ttks")
+debug_color = Color(0.960784, 0, 0.517647, 0.419608)
+
+[node name="Collidor" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_n0ptk")
+
+[node name="PlayerAnimator" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = ExtResource("2_1tkm6")
+animation = &"idle"
+metadata/_edit_lock_ = true
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("3_dmpop")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

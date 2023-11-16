@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://by0y42w1roxaf"]
+
+[ext_resource type="Script" path="res://scripts/dungeon_master.gd" id="1_qnp3c"]
+
+[node name="dungeon_master" type="Node"]
+script = ExtResource("1_qnp3c")
