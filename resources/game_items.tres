@@ -1,0 +1,12 @@
+[gd_resource type="JSON" format=3 uid="uid://ciw3fmwpgvk4a"]
+
+[resource]
+data = {
+"entities": [{
+"name": "Milk",
+"type": "Artisan",
+"value": "100"
+}],
+"name": "game_items",
+"version": "1.0.0"
+}

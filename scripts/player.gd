@@ -3,15 +3,18 @@ extends CharacterBody2D
 
 @export var movement_speed = 300.0
 @export var camera_zoom = 2.0
-@export var health_max = 10
+@export var health_max = 100
+@export var health_energy = 100
 
-var health_max_modifier = 0;
-var health_current = 0; 
+var health_max_modifier = 1
+var current_health = 0
 
+var energy_max_modifier = 1
+var current_energy = 0
 
 func _ready():
 	$Camera.zoom = Vector2(camera_zoom, camera_zoom)
-	health_current = health_max + health_max_modifier
+	current_health = health_max + health_max_modifier
 	
 	var newHoe = Hoe.new()
 	$Inventory.add_child(newHoe)
@@ -25,7 +28,7 @@ func _ready():
 
 
 func _process(delta):
-	if(health_current <= 0):
+	if(current_health <= 0):
 		queue_free()
 	
 	if(Input.is_action_just_pressed("interact")):
@@ -69,7 +72,7 @@ func _on_hitbox_area_entered(area):
 	var collision = area.get_parent()
 	
 	if((collision.name == "mob" || collision.name == "amogus") && ! collision._is_dead()):
-		health_current -= 1
+		current_health -= 1
 		collision._hit_player()
 
 
