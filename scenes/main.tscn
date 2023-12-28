@@ -820,6 +820,7 @@ layer_1/tile_data = PackedInt32Array(-589808, 720896, 0, -524272, 720896, 1, -45
 [node name="player" parent="." instance=ExtResource("3_1r8sn")]
 movement_speed = 8000.0
 camera_zoom = 2.3
+energy_max = 10
 
 [node name="mobContainer" type="Node" parent="."]
 

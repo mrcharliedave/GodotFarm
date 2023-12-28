@@ -11,3 +11,4 @@ func _use():
 	var mapLocation = map.local_to_map(map.to_local(owner.get_global_mouse_position()))
 	
 	map.set_cell(0, mapLocation, 0, Vector2i(4,2))
+	return true

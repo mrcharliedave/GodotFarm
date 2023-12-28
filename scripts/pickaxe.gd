@@ -12,3 +12,5 @@ func _use():
 	
 	if(map.get_cell_atlas_coords(0, mapLocation) == Vector2i(4,2)):
 		map.set_cell(0, mapLocation, 0, Vector2i(0,2))
+		return true
+	return false

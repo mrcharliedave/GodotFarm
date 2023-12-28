@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var movement_speed = 300.0
 @export var camera_zoom = 2.0
 @export var health_max = 100
-@export var health_energy = 100
+@export var energy_max = 100
 
 var health_max_modifier = 1
 var current_health = 0
@@ -12,9 +12,13 @@ var current_health = 0
 var energy_max_modifier = 1
 var current_energy = 0
 
+var second_counter = 0
+
+
 func _ready():
 	$Camera.zoom = Vector2(camera_zoom, camera_zoom)
-	current_health = health_max + health_max_modifier
+	current_health = health_max * health_max_modifier
+	current_energy = energy_max * energy_max_modifier
 	
 	var newHoe = Hoe.new()
 	$Inventory.add_child(newHoe)
@@ -30,6 +34,13 @@ func _ready():
 func _process(delta):
 	if(current_health <= 0):
 		queue_free()
+	
+	second_counter += delta
+	
+	if(second_counter >= 1):
+		if(current_energy < energy_max * energy_max_modifier):
+			current_energy = min(current_energy + 1, energy_max * energy_max_modifier)
+		second_counter = 0
 	
 	if(Input.is_action_just_pressed("interact")):
 		interact()
@@ -74,11 +85,14 @@ func _on_hitbox_area_entered(area):
 	if((collision.name == "mob" || collision.name == "amogus") && ! collision._is_dead()):
 		current_health -= 1
 		collision._hit_player()
+		print("ouch: " + collision.name)
 
 
 func interact():
-	$Inventory.use_equipped_item()
-	#var map = get_tree().current_scene.get_node("TileMap")
-	#var mapLocation = map.local_to_map(map.to_local(get_global_mouse_position()))
-	
-	#map.set_cell(0, mapLocation, 0, Vector2i(4,2))
+	if($Inventory.can_use_equipped_item(current_energy)):
+		if($Inventory.use_equipped_item()):
+			current_energy -= $Inventory.get_energy_use_of_equipped_item()
+		else:
+			print("can't use item for some reason? r u stupid?")
+	else:
+		print("too tired")
