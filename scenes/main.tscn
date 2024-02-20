@@ -830,4 +830,3 @@ movement_speed = 3500
 
 [node name="amogus" parent="." instance=ExtResource("5_3w7x1")]
 position = Vector2(-164, -23)
-movement_speed = 6000

@@ -28,6 +28,10 @@ func _ready():
 	$Inventory.add_child(newPick)
 	$Inventory.give_item(newPick)
 	
+	var newWeapon = Weapon.new()
+	$Inventory.add_child(newWeapon)
+	$Inventory.give_item(newWeapon)
+	
 	$Inventory.equip_item(0)
 
 
@@ -43,13 +47,16 @@ func _process(delta):
 		second_counter = 0
 	
 	if(Input.is_action_just_pressed("interact")):
-		interact()
+		use_item()
 	
 	if(Input.is_action_just_pressed("item1")):
 		$Inventory.equip_item(0)
 	
 	if(Input.is_action_just_pressed("item2")):
 		$Inventory.equip_item(1)
+	
+	if(Input.is_action_just_pressed("item3")):
+		$Inventory.equip_item(2)
 
 
 func _physics_process(delta):
@@ -88,7 +95,11 @@ func _on_hitbox_area_entered(area):
 		print("ouch: " + collision.name)
 
 
-func interact():
+func get_forward_direction():
+	var forward_direction = velocity.normalized()
+	return forward_direction
+
+func use_item():
 	if($Inventory.can_use_equipped_item(current_energy)):
 		if($Inventory.use_equipped_item()):
 			current_energy -= $Inventory.get_energy_use_of_equipped_item()
